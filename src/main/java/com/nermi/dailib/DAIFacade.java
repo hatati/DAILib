@@ -1,4 +1,4 @@
-package com.example.nermi.dailib;
+package com.nermi.dailib;
 
 import android.support.v7.app.AppCompatActivity;
 

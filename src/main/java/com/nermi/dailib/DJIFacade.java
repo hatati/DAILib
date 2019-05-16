@@ -7,7 +7,7 @@ import android.widget.Toast;
 
 import dji.sdk.mobilerc.MobileRemoteController;
 
-public class DJIFacade implements com.example.nermi.dailib.DAIFacade {
+public class DJIFacade implements DAIFacade {
 
     private OnScreenJoystick onScreenJoystickRight;
     private OnScreenJoystick onScreenJoystickLeft;
