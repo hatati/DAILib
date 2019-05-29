@@ -20,7 +20,7 @@ public interface DAIFacade {
 
     void setupMobileRemoteController();
 
-    void setupVirtualSticksListeners(AppCompatActivity activity, int frameLayoutId);
-
-    void tearDownVirtualSticksListeners();
+//    void setupVirtualSticksListeners(AppCompatActivity activity, int frameLayoutId);
+//
+//    void tearDownVirtualSticksListeners();
 }

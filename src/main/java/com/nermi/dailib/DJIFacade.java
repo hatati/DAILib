@@ -9,8 +9,7 @@ import dji.sdk.mobilerc.MobileRemoteController;
 
 public class DJIFacade implements DAIFacade {
 
-    private OnScreenJoystick onScreenJoystickRight;
-    private OnScreenJoystick onScreenJoystickLeft;
+
     private MobileRemoteController mMobileRemoteController;
 
     private static DJIFacade _djiFacade;
@@ -28,10 +27,6 @@ public class DJIFacade implements DAIFacade {
 
     }
 
-    private void setupDJIMobileRemoteController(MobileRemoteController mobileRemoteController){
-            mMobileRemoteController = mobileRemoteController;
-    }
-
     @Override
     public void initUI(AppCompatActivity activity, int frameLayoutId) {
         activity.getSupportFragmentManager().beginTransaction().replace(frameLayoutId, Camera2Fragment.newInstance())
@@ -45,9 +40,7 @@ public class DJIFacade implements DAIFacade {
 
                 try{
                     // Setup the Mobile Remote Controller
-                    setupDJIMobileRemoteController(DJIApplication.getAircraftInstance().getMobileRemoteController());
-                    // Setup virtual sticks listeners
-                    setupVirtualSticksListeners(activity, frameLayoutId);
+                    setupMobileRemoteController();
                 }catch (NullPointerException ex){
                     ex.printStackTrace();
                     activity.runOnUiThread(new Runnable() {
@@ -60,18 +53,6 @@ public class DJIFacade implements DAIFacade {
                 }
             }
 
-            @Override
-            public void onFragmentPaused(FragmentManager fm, Fragment f) {
-                super.onFragmentPaused(fm, f);
-
-                try{
-                    //Tear down virtual sticks listeners
-                    tearDownVirtualSticksListeners();
-                }catch (NullPointerException ex){
-                    ex.printStackTrace();
-                }
-
-            }
         }, false);
     }
 
@@ -113,90 +94,8 @@ public class DJIFacade implements DAIFacade {
 
     @Override
     public void setupMobileRemoteController() {
-
-    }
-
-    /**
-     * Creates listeners for the the virtual sticks
-     * @param activity The activity containing the virtual sticks
-     */
-    public void setupVirtualSticksListeners(AppCompatActivity activity, int frameLayoutId){
-        onScreenJoystickLeft = activity.getSupportFragmentManager()
-                .findFragmentById(frameLayoutId).getView().findViewById(R.id.directionJoystickLeft);
-        onScreenJoystickRight = activity.getSupportFragmentManager()
-                .findFragmentById(frameLayoutId).getView().findViewById(R.id.directionJoystickRight);
-
-        assert onScreenJoystickLeft != null;
-        assert onScreenJoystickRight != null;
-
-        onScreenJoystickLeft.setJoystickListener(new OnScreenJoystickListener() {
-            @Override
-            public void onTouch(OnScreenJoystick joystick, float pX, float pY) {
-                if (Math.abs(pX) < 0.02) {
-                    pX = 0;
-                }
-
-                if (Math.abs(pY) < 0.02) {
-                    pY = 0;
-                }
-
-
-                if (mMobileRemoteController != null) {
-                    mMobileRemoteController.setLeftStickHorizontal(pX);
-                    mMobileRemoteController.setLeftStickVertical(pY);
-                }
-
-//                System.out.println("pX: " + String.valueOf(pX));
-//                System.out.println("pY: " + String.valueOf(pY));
-
-            }
-        });
-
-        onScreenJoystickRight.setJoystickListener(new OnScreenJoystickListener() {
-            @Override
-            public void onTouch(OnScreenJoystick joystick, float pX, float pY) {
-                if (Math.abs(pX) < 0.02) {
-                    pX = 0;
-                }
-
-                if (Math.abs(pY) < 0.02) {
-                    pY = 0;
-                }
-
-
-                if (mMobileRemoteController != null) {
-                    mMobileRemoteController.setRightStickHorizontal(pX);
-                    mMobileRemoteController.setRightStickVertical(pY);
-                }
-
-//                System.out.println("pX: " + String.valueOf(pX));
-//                System.out.println("pY: " + String.valueOf(pY));
-            }
-        });
-
-
-    }
-
-
-    public void tearDownVirtualSticksListeners(){
-        onScreenJoystickRight.setJoystickListener(null);
-        onScreenJoystickLeft.setJoystickListener(null);
-    }
-
-    public OnScreenJoystick getOnScreenJoystickRight() {
-        return onScreenJoystickRight;
-    }
-
-    public void setOnScreenJoystickRight(OnScreenJoystick onScreenJoystickRight) {
-        this.onScreenJoystickRight = onScreenJoystickRight;
-    }
-
-    public OnScreenJoystick getOnScreenJoystickLeft() {
-        return onScreenJoystickLeft;
-    }
-
-    public void setOnScreenJoystickLeft(OnScreenJoystick onScreenJoystickLeft) {
-        this.onScreenJoystickLeft = onScreenJoystickLeft;
+        if(mMobileRemoteController != null)
+            mMobileRemoteController = DJIApplication.getAircraftInstance().getMobileRemoteController();
     }
 
     public MobileRemoteController getmMobileRemoteController() {

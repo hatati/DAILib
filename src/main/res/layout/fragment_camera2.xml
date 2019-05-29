@@ -28,25 +28,6 @@
             android:layout_gravity="center"
             />
 
-        <com.nermi.dailib.OnScreenJoystick
-            android:id="@+id/directionJoystickRight"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="bottom|end"
-
-            android:layout_marginBottom="10dp"
-            android:layout_marginStart="10dp"
-            android:background="@mipmap/joystick_bg"/>
-
-        <com.nermi.dailib.OnScreenJoystick
-            android:id="@+id/directionJoystickLeft"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="bottom|start"
-            android:layout_marginBottom="10dp"
-            android:layout_marginEnd="10dp"
-            android:background="@mipmap/joystick_bg"/>
-
     </FrameLayout>
 
 
