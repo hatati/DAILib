@@ -94,7 +94,7 @@ public class DJIFacade implements DAIFacade {
 
     @Override
     public void setupMobileRemoteController() {
-        if(mMobileRemoteController != null)
+        if(mMobileRemoteController == null)
             mMobileRemoteController = DJIApplication.getAircraftInstance().getMobileRemoteController();
     }
 
