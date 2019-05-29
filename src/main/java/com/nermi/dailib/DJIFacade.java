@@ -29,6 +29,7 @@ public class DJIFacade implements DAIFacade {
 
     @Override
     public void initUI(AppCompatActivity activity, int frameLayoutId) {
+        // Inject the Camera2Fragent inside the FrameLayout in activity_camera layout
         activity.getSupportFragmentManager().beginTransaction().replace(frameLayoutId, Camera2Fragment.newInstance())
                 .commit();
 

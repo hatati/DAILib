@@ -24,9 +24,12 @@ public class DJIApplication extends Application {
     private static BaseProduct mProduct;
     private Handler mHandler;
     private DJISDKManager.SDKManagerCallback mDJISDKManagerCallback;
-
     private Application instance;
 
+    /**
+     * Set context of the DJIApplication class
+     * @param application application instance to be set to
+     */
     public void setContext(Application application) {
         instance = application;
     }
@@ -151,6 +154,9 @@ public class DJIApplication extends Application {
         }
     }
 
+    /**
+     * Broadcast connection changes to the aircraft to the application
+     */
     private void notifyStatusChange() {
         mHandler.removeCallbacks(updateRunnable);
         mHandler.postDelayed(updateRunnable, 500);

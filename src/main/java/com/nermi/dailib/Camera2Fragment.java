@@ -68,7 +68,9 @@ public class Camera2Fragment extends Fragment implements ActivityCompat.OnReques
 
     private TextView textView;
 
-    //User defined labels
+    /**
+     * User defined labels
+     * */
     private Map<String, DroneCommands> labels = new HashMap<>();
 
     DJIFacade djiFacade;
@@ -257,6 +259,12 @@ public class Camera2Fragment extends Fragment implements ActivityCompat.OnReques
         }
     }
 
+    /**
+     * Sends a movement command to a DJI drone inferred from the output with the highest probability
+     * above 0.7 from the image classifier
+     * @param highestProbLabel Output with highest probability
+     * @param labels map of label:DroneCommand pairs
+     */
     private void inferMovement(Map.Entry<String, Float> highestProbLabel, Map<String, DroneCommands> labels){
         final Activity activity = getActivity();
         if (activity != null && djiFacade.getmMobileRemoteController() != null) {
@@ -384,6 +392,9 @@ public class Camera2Fragment extends Fragment implements ActivityCompat.OnReques
         return inflater.inflate(R.layout.fragment_camera2, container, false);
     }
 
+    /**
+     * Try to initialize a subclass of {@code ImageClassifier}
+     */
     private void loadModel() {
         // Get UI information before delegating to background
 
@@ -454,6 +465,7 @@ public class Camera2Fragment extends Fragment implements ActivityCompat.OnReques
     @Override
     public void onDestroy() {
         classifier.close();
+        // Reset mobile remote controller sticks when the activity gets destroyes
         if (djiFacade.getmMobileRemoteController() != null){
             djiFacade.getmMobileRemoteController().setRightStickVertical(0);
             djiFacade.getmMobileRemoteController().setRightStickHorizontal(0);
