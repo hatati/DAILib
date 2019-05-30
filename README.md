@@ -23,4 +23,4 @@ Currently the library only supports DJI drones. An example of how to apply DAILI
 (**Note**: The smartphone is supposed to be attached to the drone with the backcamera facing forward)
 
 ### License
-The library is released under the GNU General Public License `GPL-3.0-or-later`.
+The library is released under the GNU General Public License `GPL-3.0`.
